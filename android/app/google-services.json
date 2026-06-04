@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "143041710240",
+    "project_id": "adobeshortcuts-ae039",
+    "storage_bucket": "adobeshortcuts-ae039.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143041710240:android:a6a7aa16a1e6171fac61c5",
+        "android_client_info": {
+          "package_name": "com.example.adobeshortcuts"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeSwgWpn2uJ4iwLfvHxGMHRfxotM-bY-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
