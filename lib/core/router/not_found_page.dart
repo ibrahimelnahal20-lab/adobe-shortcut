@@ -23,7 +23,7 @@ class NotFoundPage extends StatelessWidget {
             children: [
               RepaintBoundary(
                 child: Lottie.asset(
-                  'assets/lottie/404.json',
+                  'assets/lottie/error.json',
                   width: 200,
                   height: 200,
                   repeat: true,

@@ -82,21 +82,6 @@ class _FeaturedAppCardState extends State<FeaturedAppCard> {
                       height: 48,
                     ),
                   ),
-                  const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: widget.theme.colorScheme.onSurface.withOpacity(0.04),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      widget.strings.adobeShortcuts,
-                      style: widget.theme.textTheme.labelSmall?.copyWith(
-                        color: widget.theme.colorScheme.onSurface.withOpacity(0.6),
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
                 ],
               ),
               const SizedBox(height: 24),

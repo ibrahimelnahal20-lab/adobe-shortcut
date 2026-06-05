@@ -370,6 +370,7 @@ class AboutPage extends ConsumerWidget {
                   linkedin: 'https://www.linkedin.com/in/ibrahim-elnahal-887955410',
                   email: 'ibrahimelnahal20@gmail.com',
                   theme: theme,
+                  avatarAsset: 'assets/avatar/1.jpg',
                 );
 
                 final adhamCard = _CreatorCard(
@@ -386,6 +387,8 @@ class AboutPage extends ConsumerWidget {
                   linkedin: 'https://www.linkedin.com/in/adham-shawky-83b90a3a0',
                   email: 'adhamtshawky@gmail.com',
                   theme: theme,
+                  avatarAsset: 'assets/avatar/2.jpg',
+                  imageAlignment: Alignment(0, -0.6), // Moves image down slightly
                 );
 
                 if (isMobile) {
@@ -645,6 +648,8 @@ class _CreatorCard extends StatefulWidget {
   final String? linkedin;
   final String? email;
   final ThemeData theme;
+  final String? avatarAsset;
+  final AlignmentGeometry? imageAlignment;
 
   const _CreatorCard({
     required this.name,
@@ -656,6 +661,8 @@ class _CreatorCard extends StatefulWidget {
     this.linkedin,
     this.email,
     required this.theme,
+    this.avatarAsset,
+    this.imageAlignment,
   });
 
   @override
@@ -702,16 +709,32 @@ class _CreatorCardState extends State<_CreatorCard> {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: 28,
-                  backgroundColor: widget.theme.colorScheme.primary.withValues(alpha: 0.1),
-                  child: Text(
-                    widget.initials,
-                    style: widget.theme.textTheme.titleLarge?.copyWith(
-                      color: widget.theme.colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
+                Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: widget.theme.colorScheme.primary.withValues(alpha: 0.1),
+                    image: widget.avatarAsset != null
+                        ? DecorationImage(
+                            image: AssetImage(widget.avatarAsset!),
+                            fit: BoxFit.cover,
+                            alignment: widget.imageAlignment ?? Alignment.center,
+                            filterQuality: FilterQuality.high,
+                          )
+                        : null,
                   ),
+                  child: widget.avatarAsset == null
+                      ? Center(
+                          child: Text(
+                            widget.initials,
+                            style: widget.theme.textTheme.titleLarge?.copyWith(
+                              color: widget.theme.colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      : null,
                 ),
                 const SizedBox(width: 16),
                 Expanded(

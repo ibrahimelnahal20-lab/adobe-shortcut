@@ -146,7 +146,7 @@ const enStrings = AppStrings(
   browseApps: 'Browse Supported Apps',
   goHome: 'Go Home',
   roleFlutterDeveloper: 'Flutter Developer',
-  roleGraphicDesigner: 'Graphic Designer & Shortcut Database Curator',
+  roleGraphicDesigner: 'Video Editor & Motion Graphic Designer',
   respFlutterWeb: 'Flutter Web Development',
   respAppArchitecture: 'Application Architecture',
   respPerformance: 'Performance Optimization',

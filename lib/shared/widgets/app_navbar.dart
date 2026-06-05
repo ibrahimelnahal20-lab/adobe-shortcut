@@ -145,7 +145,7 @@ class _AppNavbarState extends ConsumerState<AppNavbar> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     SvgPicture.asset(
-                                      "assets/logos/adobe.svg",
+                                      "assets/Logos/adobe.svg",
                                       width: logoSize,
                                       height: logoSize,
                                     ),
@@ -213,7 +213,7 @@ class _AppNavbarState extends ConsumerState<AppNavbar> {
                                   ),
                                   child: IconButton(
                                     icon: SvgPicture.asset(
-                                      'assets/icons/setting.svg',
+                                      'assets/Icons/setting.svg',
                                       width: 22,
                                       height: 22,
                                       colorFilter: ColorFilter.mode(

@@ -143,7 +143,7 @@ const arStrings = AppStrings(
   browseApps: 'تصفح التطبيقات المدعومة',
   goHome: 'الرئيسية',
   roleFlutterDeveloper: 'مطور Flutter',
-  roleGraphicDesigner: 'مصمم جرافيك ومنسق قاعدة بيانات الاختصارات',
+  roleGraphicDesigner: 'مونتير ومصمم موشن جرافيك',
   respFlutterWeb: 'تطوير Flutter للويب',
   respAppArchitecture: 'معمارية التطبيق',
   respPerformance: 'تحسين الأداء',

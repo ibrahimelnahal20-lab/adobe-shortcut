@@ -76,7 +76,7 @@ class HomeFooter extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SvgPicture.asset(
-              'assets/logos/adobe.svg',
+              'assets/Logos/adobe.svg',
               width: 24,
               height: 24,
               colorFilter: ColorFilter.mode(theme.colorScheme.primary, BlendMode.srcIn),
@@ -188,7 +188,7 @@ class HomeFooter extends ConsumerWidget {
                   ),
                   child: IconButton(
                     icon: SvgPicture.asset(
-                      'assets/icons/setting.svg',
+                      'assets/Icons/setting.svg',
                       width: 22,
                       height: 22,
                       colorFilter: ColorFilter.mode(
