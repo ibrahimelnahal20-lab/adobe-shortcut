@@ -23,9 +23,9 @@ class AboutPage extends ConsumerWidget {
         child: Column(
           children: [
             const SizedBox(height: 120),
-            
+
             // 1. Hero & Stats
-            _buildHero(theme, strings),
+            _buildHero(context, theme, strings),
             const SizedBox(height: 32),
             _buildStats(theme, strings),
             const SizedBox(height: 80),
@@ -62,7 +62,8 @@ class AboutPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildHero(ThemeData theme, dynamic strings) {
+  Widget _buildHero(BuildContext context, ThemeData theme, dynamic strings) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
@@ -84,10 +85,14 @@ class AboutPage extends ConsumerWidget {
           const SizedBox(height: 24),
           Text(
             strings.aboutHeroTitle,
-            style: theme.textTheme.displayMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.onSurface,
-            ),
+            style:
+                (isMobile
+                        ? theme.textTheme.headlineMedium
+                        : theme.textTheme.displayMedium)
+                    ?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.onSurface,
+                    ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
@@ -95,10 +100,16 @@ class AboutPage extends ConsumerWidget {
             constraints: const BoxConstraints(maxWidth: 600),
             child: Text(
               strings.aboutHeroDesc,
-              style: theme.textTheme.titleLarge?.copyWith(
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                height: 1.5,
-              ),
+              style:
+                  (isMobile
+                          ? theme.textTheme.bodyLarge
+                          : theme.textTheme.titleLarge)
+                      ?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
+                        height: 1.5,
+                      ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -155,7 +166,11 @@ class AboutPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildFeatures(BuildContext context, ThemeData theme, dynamic strings) {
+  Widget _buildFeatures(
+    BuildContext context,
+    ThemeData theme,
+    dynamic strings,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: ConstrainedBox(
@@ -174,35 +189,50 @@ class AboutPage extends ConsumerWidget {
             LayoutBuilder(
               builder: (context, constraints) {
                 final isMobile = constraints.maxWidth < 600;
+                final items = [
+                  _FeatureEditorialItem(
+                    icon: Icons.keyboard_alt_outlined,
+                    title: strings.aboutFeature1Title,
+                    desc: strings.aboutFeature1Desc,
+                  ),
+                  _FeatureEditorialItem(
+                    icon: Icons.bookmark_border,
+                    title: strings.aboutFeature2Title,
+                    desc: strings.aboutFeature2Desc,
+                  ),
+                  _FeatureEditorialItem(
+                    icon: Icons.grid_view,
+                    title: strings.aboutFeature3Title,
+                    desc: strings.aboutFeature3Desc,
+                  ),
+                  _FeatureEditorialItem(
+                    icon: Icons.translate,
+                    title: strings.aboutFeature4Title,
+                    desc: strings.aboutFeature4Desc,
+                  ),
+                ];
+
+                if (isMobile) {
+                  return Column(
+                    children: items
+                        .map(
+                          (item) => Padding(
+                            padding: const EdgeInsets.only(bottom: 32.0),
+                            child: item,
+                          ),
+                        )
+                        .toList(),
+                  );
+                }
+
                 return GridView.count(
-                  crossAxisCount: isMobile ? 1 : 2,
+                  crossAxisCount: 2,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   mainAxisSpacing: 32,
                   crossAxisSpacing: 48,
-                  childAspectRatio: isMobile ? 3.0 : 4.0,
-                  children: [
-                    _FeatureEditorialItem(
-                      icon: Icons.keyboard_alt_outlined,
-                      title: strings.aboutFeature1Title,
-                      desc: strings.aboutFeature1Desc,
-                    ),
-                    _FeatureEditorialItem(
-                      icon: Icons.bookmark_border,
-                      title: strings.aboutFeature2Title,
-                      desc: strings.aboutFeature2Desc,
-                    ),
-                    _FeatureEditorialItem(
-                      icon: Icons.grid_view,
-                      title: strings.aboutFeature3Title,
-                      desc: strings.aboutFeature3Desc,
-                    ),
-                    _FeatureEditorialItem(
-                      icon: Icons.translate,
-                      title: strings.aboutFeature4Title,
-                      desc: strings.aboutFeature4Desc,
-                    ),
-                  ],
+                  childAspectRatio: 3.5,
+                  children: items,
                 );
               },
             ),
@@ -212,7 +242,12 @@ class AboutPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildSupportedApps(BuildContext context, ThemeData theme, dynamic strings, WidgetRef ref) {
+  Widget _buildSupportedApps(
+    BuildContext context,
+    ThemeData theme,
+    dynamic strings,
+    WidgetRef ref,
+  ) {
     final appsAsync = ref.watch(allAppsProvider);
 
     return Padding(
@@ -286,7 +321,11 @@ class AboutPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildFAQSection(BuildContext context, ThemeData theme, dynamic strings) {
+  Widget _buildFAQSection(
+    BuildContext context,
+    ThemeData theme,
+    dynamic strings,
+  ) {
     final faqs = <Map<String, String>>[
       {'q': strings.faq1Q, 'a': strings.faq1A},
       {'q': strings.faq2Q, 'a': strings.faq2A},
@@ -316,7 +355,11 @@ class AboutPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildCreatorsSection(BuildContext context, ThemeData theme, dynamic strings) {
+  Widget _buildCreatorsSection(
+    BuildContext context,
+    ThemeData theme,
+    dynamic strings,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: ConstrainedBox(
@@ -353,7 +396,7 @@ class AboutPage extends ConsumerWidget {
             LayoutBuilder(
               builder: (context, constraints) {
                 final isMobile = constraints.maxWidth < 700;
-                
+
                 final ibrahimCard = _CreatorCard(
                   name: strings.creatorIbrahim,
                   initials: 'IE',
@@ -367,7 +410,8 @@ class AboutPage extends ConsumerWidget {
                   ],
                   portfolio: 'https://ibrahim-portfolio-zeta.vercel.app/',
                   github: 'https://github.com/ibrahimelnahal20-lab',
-                  linkedin: 'https://www.linkedin.com/in/ibrahim-elnahal-887955410',
+                  linkedin:
+                      'https://www.linkedin.com/in/ibrahim-elnahal-887955410',
                   email: 'ibrahimelnahal20@gmail.com',
                   theme: theme,
                   avatarAsset: 'assets/avatar/1.jpg',
@@ -384,11 +428,15 @@ class AboutPage extends ConsumerWidget {
                     strings.respContentOrganization,
                     strings.respCreativeDirection,
                   ],
-                  linkedin: 'https://www.linkedin.com/in/adham-shawky-83b90a3a0',
+                  linkedin:
+                      'https://www.linkedin.com/in/adham-shawky-83b90a3a0',
                   email: 'adhamtshawky@gmail.com',
                   theme: theme,
                   avatarAsset: 'assets/avatar/2.jpg',
-                  imageAlignment: Alignment(0, -0.6), // Moves image down slightly
+                  imageAlignment: Alignment(
+                    0,
+                    -0.6,
+                  ), // Moves image down slightly
                 );
 
                 if (isMobile) {
@@ -446,12 +494,20 @@ class AboutPage extends ConsumerWidget {
             FilledButton(
               onPressed: () => context.go(RoutePaths.shortcuts),
               style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 20,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
               child: Text(
                 strings.aboutCtaBtn,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
             ),
           ],
@@ -521,41 +577,43 @@ class _FeatureEditorialItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primary.withValues(alpha: 0.1),
-            shape: BoxShape.circle,
+    return RepaintBoundary(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: theme.colorScheme.primary, size: 28),
           ),
-          child: Icon(icon, color: theme.colorScheme.primary, size: 28),
-        ),
-        const SizedBox(width: 24),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.onSurface,
+          const SizedBox(width: 24),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.onSurface,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                desc,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                  height: 1.5,
+                const SizedBox(height: 8),
+                Text(
+                  desc,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                    height: 1.5,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -571,69 +629,124 @@ class _FAQAccordion extends StatefulWidget {
 }
 
 class _FAQAccordionState extends State<_FAQAccordion> {
-  int? _expandedIndex;
+  final ValueNotifier<int?> _expandedNotifier = ValueNotifier<int?>(null);
+
+  @override
+  void dispose() {
+    _expandedNotifier.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: List.generate(widget.faqs.length, (index) {
-        final isExpanded = _expandedIndex == index;
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
-          child: Material(
-            clipBehavior: Clip.antiAlias,
-            color: isExpanded 
-                ? widget.theme.colorScheme.primary.withValues(alpha: 0.05)
-                : widget.theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: BorderSide(
-                color: isExpanded 
-                    ? widget.theme.colorScheme.primary.withValues(alpha: 0.3)
-                    : widget.theme.colorScheme.outline.withValues(alpha: 0.1),
-              ),
+        return _FAQItem(
+          index: index,
+          faq: widget.faqs[index],
+          theme: widget.theme,
+          expandedNotifier: _expandedNotifier,
+        );
+      }),
+    );
+  }
+}
+
+class _FAQItem extends StatefulWidget {
+  final int index;
+  final Map<String, String> faq;
+  final ThemeData theme;
+  final ValueNotifier<int?> expandedNotifier;
+
+  const _FAQItem({
+    required this.index,
+    required this.faq,
+    required this.theme,
+    required this.expandedNotifier,
+  });
+
+  @override
+  State<_FAQItem> createState() => _FAQItemState();
+}
+
+class _FAQItemState extends State<_FAQItem> {
+  late bool _isExpanded;
+
+  @override
+  void initState() {
+    super.initState();
+    _isExpanded = widget.expandedNotifier.value == widget.index;
+    widget.expandedNotifier.addListener(_onExpandedChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.expandedNotifier.removeListener(_onExpandedChanged);
+    super.dispose();
+  }
+
+  void _onExpandedChanged() {
+    final newValue = widget.expandedNotifier.value == widget.index;
+    if (newValue != _isExpanded) {
+      if (mounted) setState(() => _isExpanded = newValue);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: RepaintBoundary(
+        child: Material(
+          clipBehavior: Clip.antiAlias,
+          color: _isExpanded
+              ? widget.theme.colorScheme.primary.withValues(alpha: 0.05)
+              : widget.theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: BorderSide(
+              color: _isExpanded
+                  ? widget.theme.colorScheme.primary.withValues(alpha: 0.3)
+                  : widget.theme.colorScheme.outline.withValues(alpha: 0.1),
             ),
-            child: Theme(
-              data: widget.theme.copyWith(dividerColor: Colors.transparent),
-              child: ExpansionTile(
-                title: Text(
-                  widget.faqs[index]['q']!,
-                  style: widget.theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: isExpanded 
-                        ? widget.theme.colorScheme.primary
-                        : widget.theme.colorScheme.onSurface,
-                  ),
+          ),
+          child: Theme(
+            data: widget.theme.copyWith(dividerColor: Colors.transparent),
+            child: ExpansionTile(
+              title: Text(
+                widget.faq['q']!,
+                style: widget.theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: _isExpanded
+                      ? widget.theme.colorScheme.primary
+                      : widget.theme.colorScheme.onSurface,
                 ),
-                iconColor: widget.theme.colorScheme.primary,
-                collapsedIconColor: widget.theme.colorScheme.onSurface.withValues(alpha: 0.5),
-                expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                onExpansionChanged: (expanded) {
-                  setState(() {
-                    _expandedIndex = expanded ? index : null;
-                  });
-                },
-                initiallyExpanded: isExpanded,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        widget.faqs[index]['a']!,
-                        style: widget.theme.textTheme.bodyLarge?.copyWith(
-                          color: widget.theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                          height: 1.5,
-                        ),
+              ),
+              iconColor: widget.theme.colorScheme.primary,
+              collapsedIconColor: widget.theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              onExpansionChanged: (expanded) {
+                widget.expandedNotifier.value = expanded ? widget.index : null;
+              },
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      widget.faq['a']!,
+                      style: widget.theme.textTheme.bodyLarge?.copyWith(
+                        color: widget.theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                        height: 1.5,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        );
-      }),
+        ),
+      ),
     );
   }
 }
@@ -681,146 +794,160 @@ class _CreatorCardState extends State<_CreatorCard> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        curve: Curves.easeOutCubic,
-        padding: const EdgeInsets.all(24),
-        transform: Matrix4.translationValues(0, _isHovered ? -2 : 0, 0),
-        decoration: BoxDecoration(
-          color: widget.theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: widget.theme.colorScheme.outline.withValues(alpha: _isHovered ? 0.3 : 0.1),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: widget.theme.shadowColor.withValues(alpha: _isHovered ? 0.08 : 0.02),
-              blurRadius: _isHovered ? 16 : 8,
-              offset: Offset(0, _isHovered ? 8 : 4),
+    return RepaintBoundary(
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.easeOutCubic,
+          padding: const EdgeInsets.all(24),
+          transform: Matrix4.translationValues(0, _isHovered ? -2 : 0, 0),
+          decoration: BoxDecoration(
+            color: widget.theme.colorScheme.surfaceContainerHighest.withValues(
+              alpha: 0.3,
             ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 56,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: widget.theme.colorScheme.primary.withValues(alpha: 0.1),
-                    image: widget.avatarAsset != null
-                        ? DecorationImage(
-                            image: AssetImage(widget.avatarAsset!),
-                            fit: BoxFit.cover,
-                            alignment: widget.imageAlignment ?? Alignment.center,
-                            filterQuality: FilterQuality.high,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: widget.theme.colorScheme.outline.withValues(
+                alpha: _isHovered ? 0.3 : 0.1,
+              ),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: widget.theme.shadowColor.withValues(
+                  alpha: _isHovered ? 0.08 : 0.02,
+                ),
+                blurRadius: _isHovered ? 16 : 8,
+                offset: Offset(0, _isHovered ? 8 : 4),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 56,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: widget.theme.colorScheme.primary.withValues(
+                        alpha: 0.1,
+                      ),
+                      image: widget.avatarAsset != null
+                          ? DecorationImage(
+                              image: AssetImage(widget.avatarAsset!),
+                              fit: BoxFit.cover,
+                              alignment:
+                                  widget.imageAlignment ?? Alignment.center,
+                              filterQuality: FilterQuality.high,
+                            )
+                          : null,
+                    ),
+                    child: widget.avatarAsset == null
+                        ? Center(
+                            child: Text(
+                              widget.initials,
+                              style: widget.theme.textTheme.titleLarge
+                                  ?.copyWith(
+                                    color: widget.theme.colorScheme.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
                           )
                         : null,
                   ),
-                  child: widget.avatarAsset == null
-                      ? Center(
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.name,
+                          style: widget.theme.textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: widget.theme.colorScheme.onSurface,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          widget.role,
+                          style: widget.theme.textTheme.bodyMedium?.copyWith(
+                            color: widget.theme.colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: widget.responsibilities.map((resp) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '•',
+                          style: widget.theme.textTheme.bodyLarge?.copyWith(
+                            color: widget.theme.colorScheme.onSurface
+                                .withValues(alpha: 0.5),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
                           child: Text(
-                            widget.initials,
-                            style: widget.theme.textTheme.titleLarge?.copyWith(
-                              color: widget.theme.colorScheme.primary,
-                              fontWeight: FontWeight.bold,
+                            resp,
+                            style: widget.theme.textTheme.bodyMedium?.copyWith(
+                              color: widget.theme.colorScheme.onSurface
+                                  .withValues(alpha: 0.8),
+                              height: 1.4,
                             ),
                           ),
-                        )
-                      : null,
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.name,
-                        style: widget.theme.textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: widget.theme.colorScheme.onSurface,
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        widget.role,
-                        style: widget.theme.textTheme.bodyMedium?.copyWith(
-                          color: widget.theme.colorScheme.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widget.responsibilities.map((resp) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '•',
-                        style: widget.theme.textTheme.bodyLarge?.copyWith(
-                          color: widget.theme.colorScheme.onSurface.withValues(alpha: 0.5),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          resp,
-                          style: widget.theme.textTheme.bodyMedium?.copyWith(
-                            color: widget.theme.colorScheme.onSurface.withValues(alpha: 0.8),
-                            height: 1.4,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                if (widget.portfolio != null)
-                  _LinkIcon(
-                    icon: Icons.language_rounded,
-                    onTap: () => _launch(widget.portfolio!),
-                    theme: widget.theme,
-                  ),
-                if (widget.github != null)
-                  _LinkIcon(
-                    svgAsset: 'assets/Icons/Github.svg',
-                    onTap: () => _launch(widget.github!),
-                    theme: widget.theme,
-                  ),
-                if (widget.linkedin != null)
-                  _LinkIcon(
-                    svgAsset: 'assets/Icons/linkedin.svg',
-                    onTap: () => _launch(widget.linkedin!),
-                    theme: widget.theme,
-                  ),
-                if (widget.email != null)
-                  _LinkIcon(
-                    icon: Icons.mail_rounded,
-                    onTap: () => _launch('mailto:${widget.email}'),
-                    theme: widget.theme,
-                  ),
-              ],
-            ),
-          ],
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  if (widget.portfolio != null)
+                    _LinkIcon(
+                      icon: Icons.language_rounded,
+                      onTap: () => _launch(widget.portfolio!),
+                      theme: widget.theme,
+                    ),
+                  if (widget.github != null)
+                    _LinkIcon(
+                      svgAsset: 'assets/Icons/Github.svg',
+                      onTap: () => _launch(widget.github!),
+                      theme: widget.theme,
+                    ),
+                  if (widget.linkedin != null)
+                    _LinkIcon(
+                      svgAsset: 'assets/Icons/linkedin.svg',
+                      onTap: () => _launch(widget.linkedin!),
+                      theme: widget.theme,
+                    ),
+                  if (widget.email != null)
+                    _LinkIcon(
+                      icon: Icons.mail_rounded,
+                      onTap: () => _launch('mailto:${widget.email}'),
+                      theme: widget.theme,
+                    ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -881,4 +1008,3 @@ class _LinkIconState extends State<_LinkIcon> {
     );
   }
 }
-

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/localization/localization_provider.dart';
 import '../providers/shortcuts_providers.dart';
+import 'dart:async';
 
 class TextSearchBar extends ConsumerStatefulWidget {
   const TextSearchBar({super.key});
@@ -13,6 +14,7 @@ class TextSearchBar extends ConsumerStatefulWidget {
 
 class _TextSearchBarState extends ConsumerState<TextSearchBar> {
   final TextEditingController _controller = TextEditingController();
+  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -22,13 +24,19 @@ class _TextSearchBarState extends ConsumerState<TextSearchBar> {
 
   @override
   void dispose() {
+    _debounceTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }
 
   void _onChanged(String value) {
-    ref.read(searchQueryProvider.notifier).update(value);
-    ref.read(displayLimitProvider.notifier).reset();
+    if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 300), () {
+      if (mounted) {
+        ref.read(searchQueryProvider.notifier).update(value);
+        ref.read(displayLimitProvider.notifier).reset();
+      }
+    });
   }
 
   @override

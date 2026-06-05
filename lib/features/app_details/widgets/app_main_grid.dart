@@ -107,6 +107,7 @@ class AppMainGrid extends ConsumerWidget {
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
                           return FeaturedShortcutCard(
+                            key: ValueKey(remaining[index].id),
                             item: remaining[index],
                             theme: theme,
                             strings: strings,

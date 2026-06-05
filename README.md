@@ -1,21 +1,98 @@
 # Adobe Shortcut
 
-Modern keyboard shortcut discovery for creative professionals.
+Adobe Shortcut is a modern web platform built for creative professionals who use Adobe applications daily.
 
-**Adobe Shortcut** is an interactive, responsive web application built with Flutter Web. It provides an elegantly designed platform for creative professionals (designers, video editors, audio engineers) to instantly search, discover, and bookmark keyboard shortcuts for their daily tools.
+Discover, search, and explore keyboard shortcuts across Adobe apps with a fast, responsive, and multilingual experience designed to improve workflow efficiency and productivity.
+
+---
+
+## What's New in v1.1.0
+
+### Mobile Experience Improvements
+* Improved mobile responsiveness
+* Better touch targets
+* Reduced unnecessary spacing
+* Improved content density
+* Better mobile navigation experience
+
+### Performance Improvements
+* Search debouncing
+* Reduced widget rebuilds
+* Optimized About page rendering
+* Improved scroll performance
+* SVG rendering optimizations
+* RepaintBoundary optimizations
+
+### Search Improvements
+* Faster search experience
+* Reduced lag while typing
+* Improved filtering performance
+
+### Stability Improvements
+* Route consistency improvements
+* Navigation reliability improvements
+* Mobile UX polish
+* General bug fixes
 
 ---
 
 ## Features
 
-- **Text Search**: Instantly find shortcuts by typing actions or tool names.
-- **Key Search**: Press any key combination on your keyboard to reverse-search what it does.
-- **Application Browsing**: Filter shortcuts by your specific creative application.
-- **Categories**: Browse categorized shortcuts (e.g., Tools, Layers, View, Audio).
-- **Bookmarks**: Save and manage your most-used shortcuts for quick access.
-- **Arabic & English Support**: Full bidirectional localization (LTR/RTL) out of the box.
-- **Windows & macOS Support**: Toggle between PC and Mac modifier keys automatically.
-- **Responsive Flutter Web Experience**: Optimized with Slivers and dynamic grids for butter-smooth scrolling and interactions across desktop and mobile.
+- Fast shortcut search
+- Adobe application browsing
+- Bookmark favorite shortcuts
+- Arabic and English support
+- Light and Dark themes
+- Mobile responsive experience
+- Keyboard shortcut discovery
+- Featured shortcuts
+- Adobe application explorer
+
+---
+
+## Technology Stack
+
+- **Flutter Web**: Core UI framework compiled to WebAssembly (Wasm).
+- **Riverpod**: Robust, predictable reactive state management.
+- **GoRouter**: Declarative URL-based routing for Flutter Web.
+- **Firebase Hosting**: Fast and secure global content delivery.
+- **Cloud Firestore**: Scalable NoSQL cloud database.
+- **Flutter SVG**: Hardware-accelerated vector graphic rendering.
+- **Lottie**: High-performance JSON-based micro-animations.
+
+---
+
+## Project Structure
+
+The project follows a lightweight, feature-first architecture without unnecessary abstraction layers:
+
+```text
+lib/
+├── core/         # Shared application infrastructure.
+├── features/     # Feature-first modules.
+├── shared/       # Reusable widgets and utilities.
+└── main.dart     # Application entry point and Riverpod bootstrapping.
+```
+
+---
+
+## Performance
+
+* Optimized widget rebuilds
+* Debounced search system
+* RepaintBoundary optimizations
+* Mobile-first performance improvements
+* Smooth scrolling experience
+
+---
+
+## Roadmap
+
+* Additional Adobe applications
+* Expanded shortcut database
+* Improved search capabilities
+* More workflow productivity features
+* Community-driven shortcut suggestions
 
 ---
 
@@ -37,47 +114,6 @@ Modern keyboard shortcut discovery for creative professionals.
 
 ### About Page
 ![About Page Placeholder]()
-
----
-
-## Supported Applications
-
-- Adobe Photoshop
-- Adobe Illustrator
-- Adobe After Effects
-- Adobe Premiere Pro
-- Adobe Lightroom
-- Adobe InDesign
-- Adobe Audition
-- DaVinci Resolve
-- FL Studio
-
-*(Note: Although named Adobe Shortcut, the platform actively supports industry-standard software across multiple creative suites).*
-
----
-
-## Technology Stack
-
-- **Flutter Web**: Core UI framework compiled to WebAssembly (Wasm).
-- **Riverpod**: Robust, predictable reactive state management.
-- **GoRouter**: Declarative URL-based routing for Flutter Web.
-- **SharedPreferences**: Local persistence for user themes, language, and bookmarks.
-- **Flutter SVG**: Hardware-accelerated vector graphic rendering.
-- **Lottie**: High-performance JSON-based micro-animations.
-
----
-
-## Project Structure
-
-The project follows a lightweight, feature-first architecture without unnecessary abstraction layers:
-
-```text
-lib/
-├── core/         # Core application configurations (router, theme, localization, global providers, base models).
-├── features/     # Feature modules (home, about, shortcuts, bookmarks, app_details). Each feature encapsulates its own screens and widgets.
-├── shared/       # Shared UI components and universal widgets used across multiple features (navbar, skeleton loaders, generic buttons).
-└── main.dart     # Application entry point and Riverpod bootstrapping.
-```
 
 ---
 

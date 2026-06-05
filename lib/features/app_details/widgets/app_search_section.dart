@@ -7,8 +7,9 @@ import '../../shortcuts/providers/shortcuts_providers.dart';
 import '../../shortcuts/widgets/search_mode_switch.dart';
 import '../../shortcuts/widgets/key_recorder_widget.dart';
 import '../providers/app_details_provider.dart';
+import 'dart:async';
 
-class AppSearchSection extends ConsumerWidget {
+class AppSearchSection extends ConsumerStatefulWidget {
   final AppModel app;
   final TextEditingController searchController;
 
@@ -19,7 +20,29 @@ class AppSearchSection extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AppSearchSection> createState() => _AppSearchSectionState();
+}
+
+class _AppSearchSectionState extends ConsumerState<AppSearchSection> {
+  Timer? _debounceTimer;
+
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    super.dispose();
+  }
+
+  void _onSearchChanged(String value) {
+    if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 300), () {
+      if (mounted) {
+        ref.read(appSearchQueryProvider.notifier).update(value);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final strings = ref.watch(appStringsProvider);
     final searchMode = ref.watch(appSearchModeProvider);
@@ -66,10 +89,10 @@ class AppSearchSection extends ConsumerWidget {
                   ),
                   Expanded(
                     child: TextField(
-                      controller: searchController,
-                      onChanged: (val) => ref.read(appSearchQueryProvider.notifier).update(val),
+                      controller: widget.searchController,
+                      onChanged: _onSearchChanged,
                       decoration: InputDecoration(
-                        hintText: strings.searchAppShortcuts.replaceAll('{app}', app.name),
+                        hintText: strings.searchAppShortcuts.replaceAll('{app}', widget.app.name),
                         hintStyle: theme.textTheme.bodyLarge?.copyWith(
                           color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
                         ),
@@ -84,7 +107,7 @@ class AppSearchSection extends ConsumerWidget {
                     IconButton(
                       icon: Icon(Icons.close, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
                       onPressed: () {
-                        searchController.clear();
+                        widget.searchController.clear();
                         ref.read(appSearchQueryProvider.notifier).update('');
                       },
                     ),
@@ -93,7 +116,7 @@ class AppSearchSection extends ConsumerWidget {
             )
           else
             KeyRecorderWidget(
-              customShortcuts: ref.watch(appShortcutsProvider(app.slug)).value,
+              customShortcuts: ref.watch(appShortcutsProvider(widget.app.slug)).value,
               initialQuery: searchQuery,
               onQueryChanged: (query) => ref.read(appSearchQueryProvider.notifier).update(query),
             ),

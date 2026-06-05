@@ -66,6 +66,7 @@ class AppRelatedApps extends ConsumerWidget {
                     itemCount: displayApps.length,
                     itemBuilder: (context, index) {
                       return FeaturedAppCard(
+                        key: ValueKey(displayApps[index].slug),
                         app: displayApps[index],
                         theme: theme,
                         strings: strings,

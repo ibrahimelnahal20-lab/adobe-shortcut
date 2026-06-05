@@ -164,13 +164,14 @@ class _ShortcutsPageState extends ConsumerState<ShortcutsPage> {
                           return SliverGrid(
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: columns,
-                              mainAxisSpacing: 24,
-                              crossAxisSpacing: 24,
+                              mainAxisSpacing: columns == 1 ? 16 : 24,
+                              crossAxisSpacing: columns == 1 ? 16 : 24,
                               mainAxisExtent: 280,
                             ),
                             delegate: SliverChildBuilderDelegate(
                               (context, index) {
                                 return FeaturedShortcutCard(
+                                  key: ValueKey(displayedResults[index].id),
                                   item: displayedResults[index],
                                   theme: theme,
                                   strings: strings,
@@ -271,6 +272,8 @@ class AppFilterChips extends ConsumerWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        constraints: const BoxConstraints(minHeight: 48),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isSelected ? theme.colorScheme.primary : theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(100),
@@ -307,6 +310,8 @@ class BookmarksFilterToggle extends ConsumerWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        constraints: const BoxConstraints(minHeight: 48),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isBookmarksOnly ? theme.colorScheme.primary : theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(100),

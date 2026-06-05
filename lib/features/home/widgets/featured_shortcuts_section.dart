@@ -17,8 +17,9 @@ class FeaturedShortcutsSection extends ConsumerWidget {
     final theme = Theme.of(context);
     final strings = ref.watch(appStringsProvider);
     final languageCode = ref.watch(localizationProvider);
+    final isMobile = MediaQuery.of(context).size.width < 600;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -70,13 +71,14 @@ class FeaturedShortcutsSection extends ConsumerWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: columns,
-                          mainAxisSpacing: 24,
-                          crossAxisSpacing: 24,
+                          mainAxisSpacing: columns == 1 ? 16 : 24,
+                          crossAxisSpacing: columns == 1 ? 16 : 24,
                           mainAxisExtent: 280,
                         ),
                         itemCount: allShortcuts.length,
                         itemBuilder: (context, index) {
                           return FeaturedShortcutCard(
+                            key: ValueKey(allShortcuts[index].id),
                             item: allShortcuts[index],
                             theme: theme,
                             strings: strings,

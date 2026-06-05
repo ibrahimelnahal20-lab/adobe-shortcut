@@ -17,8 +17,9 @@ class FeaturedAppsSection extends ConsumerWidget {
     final theme = Theme.of(context);
     final strings = ref.watch(appStringsProvider);
 
+    final isMobile = MediaQuery.of(context).size.width < 600;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.0 : 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -64,13 +65,14 @@ class FeaturedAppsSection extends ConsumerWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: columns,
-                      mainAxisSpacing: 24,
-                      crossAxisSpacing: 24,
+                      mainAxisSpacing: columns == 1 ? 16 : 24,
+                      crossAxisSpacing: columns == 1 ? 16 : 24,
                       mainAxisExtent: 280,
                     ),
                     itemCount: apps.length,
                     itemBuilder: (context, index) {
                       return FeaturedAppCard(
+                        key: ValueKey(apps[index].slug),
                         app: apps[index],
                         theme: theme,
                         strings: strings,
