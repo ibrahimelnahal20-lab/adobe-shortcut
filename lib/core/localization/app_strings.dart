@@ -111,6 +111,17 @@ class AppStrings {
   final String footerDesc;
   final String footerBuiltWith;
   final String footerVersion;
+  final String desktopNoticeTitle;
+  final String desktopNoticeDesc;
+  
+  // Update Notification
+  final String newVersionAvailable;
+  final String newVersionDescription;
+  final String refreshNow;
+  final String currentVersionLabel;
+  final String latestVersionLabel;
+  final String releaseReady;
+  final String newerVersionReady;
 
   // About Page
   final String aboutHeroTitle;
@@ -261,6 +272,15 @@ class AppStrings {
     required this.footerDesc,
     required this.footerBuiltWith,
     required this.footerVersion,
+    required this.desktopNoticeTitle,
+    required this.desktopNoticeDesc,
+    required this.newVersionAvailable,
+    required this.newVersionDescription,
+    required this.refreshNow,
+    required this.currentVersionLabel,
+    required this.latestVersionLabel,
+    required this.releaseReady,
+    required this.newerVersionReady,
     required this.aboutHeroTitle,
     required this.aboutHeroDesc,
     required this.aboutMissionTitle,

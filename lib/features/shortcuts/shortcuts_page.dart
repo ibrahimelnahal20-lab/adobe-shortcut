@@ -52,6 +52,7 @@ class _ShortcutsPageState extends ConsumerState<ShortcutsPage> {
     final theme = Theme.of(context);
     final strings = ref.watch(appStringsProvider);
     final languageCode = ref.watch(localizationProvider);
+    final isMobile = MediaQuery.of(context).size.width < 768;
 
     // Setup URL Sync
     ref.listen<String>(searchQueryProvider, (previous, next) {
@@ -87,8 +88,10 @@ class _ShortcutsPageState extends ConsumerState<ShortcutsPage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-              const SearchModeSwitch(),
-              const SizedBox(height: 32),
+              if (!isMobile) ...[
+                const SearchModeSwitch(),
+                const SizedBox(height: 32),
+              ],
               // Search Input Area (Text or Keys)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),

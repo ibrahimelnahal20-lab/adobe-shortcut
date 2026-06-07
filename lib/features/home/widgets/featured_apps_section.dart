@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -51,12 +52,49 @@ class FeaturedAppsSection extends ConsumerWidget {
               return LayoutBuilder(
                 builder: (context, constraints) {
                   final width = constraints.maxWidth;
+                  if (width < 600) {
+                    final itemWidth = (width * 0.75).clamp(200.0, 280.0);
+                    return SizedBox(
+                      height: 240,
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context).copyWith(
+                          dragDevices: {
+                            PointerDeviceKind.touch,
+                            PointerDeviceKind.mouse,
+                            PointerDeviceKind.trackpad,
+                          },
+                        ),
+                        child: ListView.separated(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          clipBehavior: Clip.none,
+                          itemCount: apps.length,
+                          separatorBuilder: (context, index) => const SizedBox(width: 16),
+                        itemBuilder: (context, index) {
+                          return SizedBox(
+                            width: itemWidth,
+                            child: FeaturedAppCard(
+                              key: ValueKey(apps[index].slug),
+                              app: apps[index],
+                              theme: theme,
+                              strings: strings,
+                              onTap: () {
+                                context.go('/apps/${apps[index].slug}');
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                     ),
+                    );
+                  }
+
                   int columns = 1;
                   if (width >= 1200) {
                     columns = 5;
                   } else if (width >= 900) {
                     columns = 3;
-                  } else if (width >= 600) {
+                  } else {
                     columns = 2;
                   }
 
@@ -65,8 +103,8 @@ class FeaturedAppsSection extends ConsumerWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: columns,
-                      mainAxisSpacing: columns == 1 ? 16 : 24,
-                      crossAxisSpacing: columns == 1 ? 16 : 24,
+                      mainAxisSpacing: 24,
+                      crossAxisSpacing: 24,
                       mainAxisExtent: 280,
                     ),
                     itemCount: apps.length,

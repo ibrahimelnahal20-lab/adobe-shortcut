@@ -71,7 +71,7 @@ class _HeroSectionState extends ConsumerState<HeroSection>
     );
   }
 
-  Widget _buildContent(BuildContext context, ThemeData theme, dynamic strings) {
+  Widget _buildContent(BuildContext context, ThemeData theme, dynamic strings, {bool isMobile = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +83,8 @@ class _HeroSectionState extends ConsumerState<HeroSection>
           style: theme.textTheme.displayLarge?.copyWith(
             fontWeight: FontWeight.bold,
             color: theme.colorScheme.onSurface,
-            height: 1.2,
+            height: 1.4,
+            fontSize: isMobile ? 32 : null,
           ),
         ),
         const SizedBox(height: 24),
@@ -232,7 +233,7 @@ class _HeroSectionState extends ConsumerState<HeroSection>
               ),
               child: Column(
                 children: [
-                  _buildContent(context, theme, strings),
+                  _buildContent(context, theme, strings, isMobile: true),
                   const SizedBox(height: 48),
                   _buildLottie(420),
                 ],

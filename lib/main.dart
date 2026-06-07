@@ -7,6 +7,7 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/localization/localization_provider.dart';
 import 'core/providers/theme_provider.dart';
+import 'core/widgets/update_wrapper.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 
@@ -47,7 +48,7 @@ class MyApp extends ConsumerWidget {
       builder: (context, child) {
         return Directionality(
           textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
-          child: child!,
+          child: UpdateWrapper(child: child!),
         );
       },
     );

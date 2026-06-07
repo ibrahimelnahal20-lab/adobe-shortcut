@@ -254,11 +254,11 @@ class _OnboardingModalState extends ConsumerState<OnboardingModal> with SingleTi
               segments: [
                 ButtonSegment(
                   value: ThemeMode.light, 
-                  label: Center(child: Text(isArabic ? 'فاتح' : 'Light')),
+                  label: FittedBox(fit: BoxFit.scaleDown, child: Text(isArabic ? 'فاتح' : 'Light')),
                 ),
                 ButtonSegment(
                   value: ThemeMode.dark, 
-                  label: Center(child: Text(isArabic ? 'داكن' : 'Dark')),
+                  label: FittedBox(fit: BoxFit.scaleDown, child: Text(isArabic ? 'داكن' : 'Dark')),
                 ),
               ],
               selected: _themeMode == ThemeMode.system 
@@ -276,10 +276,11 @@ class _OnboardingModalState extends ConsumerState<OnboardingModal> with SingleTi
             child: _buildSegmented<String>(
               theme: theme,
               segments: [
-                const ButtonSegment(value: 'en', label: Center(child: Text('English'))),
+                const ButtonSegment(value: 'en', label: FittedBox(fit: BoxFit.scaleDown, child: Text('English'))),
                 ButtonSegment(
                   value: 'ar', 
-                  label: Center(
+                  label: FittedBox(
+                    fit: BoxFit.scaleDown,
                     child: Text(
                       'العربية',
                       style: GoogleFonts.alexandria(fontWeight: FontWeight.w600),
@@ -302,49 +303,55 @@ class _OnboardingModalState extends ConsumerState<OnboardingModal> with SingleTi
               segments: [
                 ButtonSegment(
                   value: 'windows', 
-                  label: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/Icons/windows.svg', 
-                        width: 16, 
-                        height: 16,
-                        colorFilter: ColorFilter.mode(
-                          _platform == 'windows' 
-                              ? theme.colorScheme.primary 
-                              : theme.colorScheme.onSurface.withValues(alpha: 0.7), 
-                          BlendMode.srcIn
+                  label: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/Icons/windows.svg', 
+                          width: 16, 
+                          height: 16,
+                          colorFilter: ColorFilter.mode(
+                            _platform == 'windows' 
+                                ? theme.colorScheme.primary 
+                                : theme.colorScheme.onSurface.withValues(alpha: 0.7), 
+                            BlendMode.srcIn
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      const Text('Windows'),
-                    ],
+                        const SizedBox(width: 6),
+                        const Text('Windows'),
+                      ],
+                    ),
                   ),
                 ),
                 ButtonSegment(
                   value: 'macos', 
-                  label: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/Icons/mac.svg', 
-                        width: 16, 
-                        height: 16,
-                        colorFilter: ColorFilter.mode(
-                          _platform == 'macos' 
-                              ? theme.colorScheme.primary 
-                              : theme.colorScheme.onSurface.withValues(alpha: 0.7), 
-                          BlendMode.srcIn
+                  label: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/Icons/mac.svg', 
+                          width: 16, 
+                          height: 16,
+                          colorFilter: ColorFilter.mode(
+                            _platform == 'macos' 
+                                ? theme.colorScheme.primary 
+                                : theme.colorScheme.onSurface.withValues(alpha: 0.7), 
+                            BlendMode.srcIn
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      const Text('macOS'),
-                    ],
+                        const SizedBox(width: 6),
+                        const Text('macOS'),
+                      ],
+                    ),
                   ),
                 ),
                 ButtonSegment(
                   value: 'both', 
-                  label: Center(child: Text(isArabic ? 'كلاهما' : 'Both')),
+                  label: FittedBox(fit: BoxFit.scaleDown, child: Text(isArabic ? 'كلاهما' : 'Both')),
                 ),
               ],
               selected: _platform,

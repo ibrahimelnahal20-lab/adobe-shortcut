@@ -701,7 +701,9 @@ class _FAQItemState extends State<_FAQItem> {
           clipBehavior: Clip.antiAlias,
           color: _isExpanded
               ? widget.theme.colorScheme.primary.withValues(alpha: 0.05)
-              : widget.theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+              : widget.theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.3,
+                ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
             side: BorderSide(
@@ -723,7 +725,9 @@ class _FAQItemState extends State<_FAQItem> {
                 ),
               ),
               iconColor: widget.theme.colorScheme.primary,
-              collapsedIconColor: widget.theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              collapsedIconColor: widget.theme.colorScheme.onSurface.withValues(
+                alpha: 0.5,
+              ),
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
               onExpansionChanged: (expanded) {
                 widget.expandedNotifier.value = expanded ? widget.index : null;
@@ -736,7 +740,9 @@ class _FAQItemState extends State<_FAQItem> {
                     child: Text(
                       widget.faq['a']!,
                       style: widget.theme.textTheme.bodyLarge?.copyWith(
-                        color: widget.theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                        color: widget.theme.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
                         height: 1.5,
                       ),
                     ),

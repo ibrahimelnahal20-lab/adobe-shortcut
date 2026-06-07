@@ -6,6 +6,7 @@ import 'widgets/featured_apps_section.dart';
 import 'widgets/why_adobe_shortcut_section.dart';
 import 'widgets/featured_shortcuts_section.dart';
 import 'widgets/home_footer.dart';
+import 'widgets/mobile_desktop_notice.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -50,9 +51,12 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: 64),
           WhyAdobeShortcutSection(),
           SizedBox(height: 64),
+          MobileDesktopNotice(),
+          SizedBox(height: 64),
           HomeFooter(),
         ],
       ),
     );
   }
 }
+

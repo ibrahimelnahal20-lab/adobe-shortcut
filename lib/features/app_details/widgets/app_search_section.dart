@@ -47,20 +47,22 @@ class _AppSearchSectionState extends ConsumerState<AppSearchSection> {
     final strings = ref.watch(appStringsProvider);
     final searchMode = ref.watch(appSearchModeProvider);
     final searchQuery = ref.watch(appSearchQueryProvider);
+    final isMobile = MediaQuery.of(context).size.width < 768;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
         children: [
-          // Search Mode Switch
-          SearchModeSwitch(
-            currentModeOverride: searchMode,
-            onModeChanged: (mode) => ref.read(appSearchModeProvider.notifier).setMode(mode),
-          ),
-          const SizedBox(height: 16),
+          if (!isMobile) ...[
+            SearchModeSwitch(
+              currentModeOverride: searchMode,
+              onModeChanged: (mode) => ref.read(appSearchModeProvider.notifier).setMode(mode),
+            ),
+            const SizedBox(height: 16),
+          ],
 
           // Search Input
-          if (searchMode == SearchMode.text)
+          if (searchMode == SearchMode.text || isMobile)
             Container(
               constraints: const BoxConstraints(maxWidth: 600),
               decoration: BoxDecoration(

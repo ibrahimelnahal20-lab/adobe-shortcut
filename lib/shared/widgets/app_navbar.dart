@@ -60,6 +60,7 @@ class _AppNavbarState extends ConsumerState<AppNavbar> {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
+      drawer: _buildMobileDrawer(theme, strings),
       body: Stack(
         children: [
           NotificationListener<ScrollNotification>(
@@ -165,41 +166,54 @@ class _AppNavbarState extends ConsumerState<AppNavbar> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(width: logoSpacing),
-                                Expanded(
-                                  child: Center(
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          _buildNavItem(
-                                            strings.home,
-                                            RoutePaths.home,
-                                          ),
-                                          SizedBox(width: navSpacing),
-                                          const AppsMenuToggleBtn(),
-                                          SizedBox(width: navSpacing),
+                                if (isMobile)
+                                  const Spacer()
+                                else
+                                  SizedBox(width: logoSpacing),
+                                if (isMobile)
+                                  Builder(
+                                    builder: (context) => IconButton(
+                                      icon: Icon(Icons.menu, color: theme.colorScheme.onSurface),
+                                      onPressed: () {
+                                        Scaffold.of(context).openDrawer();
+                                      },
+                                    ),
+                                  )
+                                else
+                                  Expanded(
+                                    child: Center(
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            _buildNavItem(
+                                              strings.home,
+                                              RoutePaths.home,
+                                            ),
+                                            SizedBox(width: navSpacing),
+                                            const AppsMenuToggleBtn(),
+                                            SizedBox(width: navSpacing),
 
-                                          _buildNavItem(
-                                            strings.shortcuts,
-                                            RoutePaths.shortcuts,
-                                          ),
-                                          SizedBox(width: navSpacing),
-                                          _buildNavItem(
-                                            strings.bookmarks,
-                                            RoutePaths.bookmarks,
-                                          ),
-                                          SizedBox(width: navSpacing),
-                                          _buildNavItem(
-                                            strings.about,
-                                            RoutePaths.about,
-                                          ),
-                                        ],
+                                            _buildNavItem(
+                                              strings.shortcuts,
+                                              RoutePaths.shortcuts,
+                                            ),
+                                            SizedBox(width: navSpacing),
+                                            _buildNavItem(
+                                              strings.bookmarks,
+                                              RoutePaths.bookmarks,
+                                            ),
+                                            SizedBox(width: navSpacing),
+                                            _buildNavItem(
+                                              strings.about,
+                                              RoutePaths.about,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                 const SizedBox(width: 16),
                                 AnimatedContainer(
                                   duration: const Duration(milliseconds: 200),
@@ -244,6 +258,73 @@ class _AppNavbarState extends ConsumerState<AppNavbar> {
           ),
         ],
       ),
+    );
+  }
+  Widget _buildMobileDrawer(ThemeData theme, dynamic strings) {
+    return Drawer(
+      backgroundColor: theme.colorScheme.surface,
+      child: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Row(
+                children: [
+                  Text(
+                    "Adobe Shortcut",
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.onSurface,
+                    ),
+                  ),
+                  const Spacer(),
+                  SvgPicture.asset(
+                    "assets/Logos/adobe.svg",
+                    width: 24,
+                    height: 24,
+                    colorFilter: ColorFilter.mode(theme.colorScheme.primary, BlendMode.srcIn),
+                  ),
+                ],
+              ),
+            ),
+            Divider(color: theme.colorScheme.outline.withOpacity(0.1), height: 1),
+            const SizedBox(height: 16),
+            _buildDrawerItem(theme, strings.home, Icons.home_rounded, RoutePaths.home),
+            _buildDrawerItem(theme, strings.apps, Icons.apps_rounded, 'apps'),
+            _buildDrawerItem(theme, strings.shortcuts, Icons.keyboard_rounded, RoutePaths.shortcuts),
+            _buildDrawerItem(theme, strings.bookmarks, Icons.bookmark_rounded, RoutePaths.bookmarks),
+            _buildDrawerItem(theme, strings.about, Icons.info_rounded, RoutePaths.about),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDrawerItem(ThemeData theme, String title, IconData icon, String path) {
+    String currentPath = '/';
+    try {
+      currentPath = GoRouterState.of(context).uri.path;
+    } catch (_) {}
+    final isActive = currentPath == path;
+
+    return ListTile(
+      leading: Icon(icon, color: isActive ? theme.colorScheme.primary : theme.colorScheme.onSurface.withOpacity(0.7)),
+      title: Text(
+        title,
+        style: theme.textTheme.titleMedium?.copyWith(
+          fontWeight: isActive ? FontWeight.bold : FontWeight.w600,
+          color: isActive ? theme.colorScheme.primary : theme.colorScheme.onSurface,
+        ),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+      onTap: () {
+        Navigator.of(context).pop(); // close drawer
+        if (path == 'apps') {
+          showDialog(context: context, builder: (_) => const AppsModal());
+        } else {
+          context.go(path);
+        }
+      },
     );
   }
 }
@@ -355,8 +436,7 @@ class _PremiumNavItemState extends State<PremiumNavItem> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeOut,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-        constraints: const BoxConstraints(minHeight: 48, minWidth: 48),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: widget.isActive
@@ -458,30 +538,43 @@ class AppsModal extends ConsumerWidget {
               height: 1,
               color: theme.colorScheme.outline.withOpacity(0.1),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
-                vertical: 24.0,
-              ),
-              child: Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                alignment: WrapAlignment.center,
-                children: AdobeAppRegistry.featuredApps.map((appItem) {
-                  return SizedBox(
-                    width: (960 - 48 - 32) / 4 - 8,
-                    child: PremiumAppCard(
-                      assetPath: appItem.svgPath,
-                      label: appItem.name,
-                      color: _getAppColor(appItem.slug),
-                      exploreText: ref.watch(appStringsProvider).explore,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        context.go('/apps/${appItem.slug}');
-                      },
-                    ),
-                  );
-                }).toList(),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24.0,
+                    vertical: 24.0,
+                  ),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isMobile = constraints.maxWidth < 600;
+                      final crossAxisCount = isMobile ? 2 : 4;
+                      final spacing = 8.0;
+                      final itemWidth = (constraints.maxWidth - (spacing * (crossAxisCount - 1))) / crossAxisCount;
+
+                      return Wrap(
+                        spacing: spacing,
+                        runSpacing: spacing,
+                        alignment: WrapAlignment.center,
+                        children: AdobeAppRegistry.featuredApps.map((appItem) {
+                          return SizedBox(
+                            width: itemWidth,
+                            child: PremiumAppCard(
+                              assetPath: appItem.svgPath,
+                              label: appItem.name,
+                              color: _getAppColor(appItem.slug),
+                              exploreText: ref.watch(appStringsProvider).explore,
+                              onTap: () {
+                                Navigator.of(context).pop();
+                                context.go('/apps/${appItem.slug}');
+                              },
+                            ),
+                          );
+                        }).toList(),
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
             Divider(

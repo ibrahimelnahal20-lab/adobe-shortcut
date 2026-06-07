@@ -167,15 +167,15 @@ class HomeFooter extends ConsumerWidget {
           builder: (context, ref, _) {
             final themeMode = ref.watch(themeProvider);
             final platformStr = ref.watch(platformProvider) ?? 'both';
-            return Row(
-              mainAxisSize: MainAxisSize.min,
+            return Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 _buildPreferenceChip(theme, themeMode == ThemeMode.dark ? strings.dark : (themeMode == ThemeMode.light ? strings.light : 'System')),
-                const SizedBox(width: 8),
                 _buildPreferenceChip(theme, isArabic ? 'العربية' : 'English'),
-                const SizedBox(width: 8),
                 _buildPreferenceChip(theme, platformStr == 'windows' ? 'Windows' : (platformStr == 'macos' ? 'macOS' : strings.both)),
-                const SizedBox(width: 16),
+                const SizedBox(width: 4),
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   decoration: BoxDecoration(

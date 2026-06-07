@@ -82,67 +82,93 @@ const enStrings = AppStrings(
   bookmarks: 'Bookmarks',
   savedShortcuts: 'Saved Shortcuts',
   noSavedShortcuts: 'No saved shortcuts yet.',
-  noSavedShortcutsDesc: 'Save shortcuts using the bookmark icon to access them quickly later.',
+  noSavedShortcutsDesc:
+      'Save shortcuts using the bookmark icon to access them quickly later.',
   bookmarksOnly: 'Bookmarks Only',
   whyAdobeShortcutTitle: 'Why Adobe Shortcut?',
-  whyAdobeShortcutSubtitle: 'Designed to help creative professionals find shortcuts faster and stay focused.',
-  
+  whyAdobeShortcutSubtitle:
+      'Designed to help creative professionals find shortcuts faster and stay focused.',
+
   block1Title: 'Key Search',
   block1Problem: 'Can\'t remember shortcut names?',
-  block1Solution: 'Press the keys you remember and instantly discover matching shortcuts.',
-  
+  block1Solution:
+      'Press the keys you remember and instantly discover matching shortcuts.',
+
   block2Title: 'Bookmarks',
   block2Problem: 'Tired of searching for the same shortcuts repeatedly?',
-  block2Solution: 'Save your most-used shortcuts and build your personal shortcut collection.',
-  
+  block2Solution:
+      'Save your most-used shortcuts and build your personal shortcut collection.',
+
   block3Title: 'Browse by Application',
   block3Problem: 'Working across multiple creative tools?',
   block3Solution: 'Explore shortcuts by application, category, and workflow.',
-  
+
   statShortcuts: '500+ Shortcuts',
   statApps: '8 Applications',
   statSearchModes: '2 Search Modes',
   statBookmarks: 'Unlimited Bookmarks',
   footerDesc: 'Find keyboard shortcuts faster across creative applications.',
   footerBuiltWith: 'Built with Flutter Web',
-  footerVersion: 'Version 1.1.0',
+  footerVersion: 'Version 1.1.3',
+  desktopNoticeTitle: 'Best Experienced on Desktop',
+  desktopNoticeDesc:
+      'To enjoy the full experience, including keyboard-based search and faster shortcut workflows, we recommend using a desktop or laptop computer.\n\n Enjoy your experience.',
+  newVersionAvailable: 'New Version Available',
+  newVersionDescription:
+      'A new version of Adobe Shortcut has been deployed.\nRefresh now to enjoy the latest improvements.',
+  refreshNow: 'Refresh Now',
+  currentVersionLabel: 'Current Version:',
+  latestVersionLabel: 'Latest Version:',
+  releaseReady: 'Release Ready',
+  newerVersionReady: 'A newer version is ready to install.',
 
   aboutHeroTitle: 'About Adobe Shortcut',
-  aboutHeroDesc: 'Adobe Shortcut helps creative professionals find, search, and organize keyboard shortcuts across their favorite applications.',
+  aboutHeroDesc:
+      'Adobe Shortcut helps creative professionals find, search, and organize keyboard shortcuts across their favorite applications.',
   aboutMissionTitle: 'Our Mission',
-  aboutMissionDesc: 'Modern creative software contains hundreds of shortcuts, but finding them in documentation is slow and frustrating. Adobe Shortcut provides a centralized, instantly searchable experience designed specifically for creative professionals.',
+  aboutMissionDesc:
+      'Modern creative software contains hundreds of shortcuts, but finding them in documentation is slow and frustrating. Adobe Shortcut provides a centralized, instantly searchable experience designed specifically for creative professionals.',
   aboutFeaturesTitle: 'Core Features',
   aboutFeature1Title: 'Key Search',
-  aboutFeature1Desc: 'Press keys directly to discover shortcuts without typing.',
+  aboutFeature1Desc:
+      'Press keys directly to discover shortcuts without typing.',
   aboutFeature2Title: 'Bookmarks',
   aboutFeature2Desc: 'Save frequently used shortcuts for instant access later.',
   aboutFeature3Title: 'Browse by Application',
-  aboutFeature3Desc: 'Explore categories and workflows for your favorite tools.',
+  aboutFeature3Desc:
+      'Explore categories and workflows for your favorite tools.',
   aboutFeature4Title: 'Arabic & English',
   aboutFeature4Desc: 'Full bilingual support to match your system preferences.',
   aboutAppsTitle: 'Supported Applications',
   aboutAppsSubtitle: 'Shortcuts from industry-leading creative tools.',
   aboutFaqTitle: 'Frequently Asked Questions',
   faq1Q: 'How does Key Search work?',
-  faq1A: 'Switch to Key Search mode and press any key combination on your keyboard. We will instantly show you all matching shortcuts.',
+  faq1A:
+      'Switch to Key Search mode and press any key combination on your keyboard. We will instantly show you all matching shortcuts.',
   faq2Q: 'Are bookmarks stored online?',
-  faq2A: 'No, all your bookmarks and preferences are securely stored locally on your device for maximum privacy and speed.',
+  faq2A:
+      'No, all your bookmarks and preferences are securely stored locally on your device for maximum privacy and speed.',
   faq3Q: 'Do I need an account?',
-  faq3A: 'No account is required. Adobe Shortcut is free to use instantly without signing up or logging in.',
+  faq3A:
+      'No account is required. Adobe Shortcut is free to use instantly without signing up or logging in.',
   faq4Q: 'Can I switch between Windows and macOS shortcuts?',
-  faq4A: 'Yes, you can toggle between operating systems at any time from the settings menu or the footer.',
+  faq4A:
+      'Yes, you can toggle between operating systems at any time from the settings menu or the footer.',
   aboutCtaTitle: 'Ready to explore shortcuts?',
   aboutCtaBtn: 'Browse Shortcuts',
 
   builtByCreatorsTitle: 'Built by Creators',
-  builtByCreatorsDesc1: 'Adobe Shortcut is an independent project created through the collaboration of development, design, and shortcut research.',
-  builtByCreatorsDesc2: 'Built with a shared passion for productivity, creative workflows, and making keyboard shortcuts easier to discover and use.',
+  builtByCreatorsDesc1:
+      'Adobe Shortcut is an independent project created through the collaboration of development, design, and shortcut research.',
+  builtByCreatorsDesc2:
+      'Built with a shared passion for productivity, creative workflows, and making keyboard shortcuts easier to discover and use.',
   creatorIbrahim: 'Ibrahim Elnahal',
   creatorAdham: 'Adham Shawky',
-  
+
   comingSoonTitle: 'Application Coming Soon',
   comingSoonDesc1: 'This application is not available in Adobe Shortcut yet.',
-  comingSoonDesc2: 'We\'re actively expanding support and plan to add more applications in future updates.',
+  comingSoonDesc2:
+      'We\'re actively expanding support and plan to add more applications in future updates.',
   browseApps: 'Browse Supported Apps',
   goHome: 'Go Home',
   roleFlutterDeveloper: 'Flutter Developer',
