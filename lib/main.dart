@@ -9,11 +9,14 @@ import 'core/localization/localization_provider.dart';
 import 'core/providers/theme_provider.dart';
 import 'core/widgets/update_wrapper.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'core/constants/app_version.dart';
 
 
 void main() async {
   usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
+  
+  debugPrint('Running Version: $appVersion');
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 

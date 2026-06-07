@@ -6,7 +6,7 @@ Discover, search, and explore keyboard shortcuts across Adobe apps with a fast, 
 
 ---
 
-## What's New in v1.1.0
+## What's New in v1.1.4
 
 ### Mobile Experience Improvements
 * Improved mobile responsiveness
@@ -38,6 +38,7 @@ Discover, search, and explore keyboard shortcuts across Adobe apps with a fast, 
 
 ## Features
 
+- **Seamless Web Updates:** Custom Over-The-Air (OTA) update system that instantly notifies users of new deployments and perfectly overrides browser caching for immediate update propagation without any manual cache clearing.
 - Fast shortcut search
 - Adobe application browsing
 - Bookmark favorite shortcuts

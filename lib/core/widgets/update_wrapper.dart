@@ -24,6 +24,8 @@ class _UpdateWrapperState extends ConsumerState<UpdateWrapper> {
 
   Future<void> _checkForUpdate() async {
     final serverVersion = await fetchServerVersion();
+    debugPrint('Current Version: $appVersion');
+    debugPrint('Server Version: $serverVersion');
     if (serverVersion != null && serverVersion != appVersion) {
       if (mounted) {
         setState(() {

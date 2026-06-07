@@ -109,7 +109,7 @@ const enStrings = AppStrings(
   statBookmarks: 'Unlimited Bookmarks',
   footerDesc: 'Find keyboard shortcuts faster across creative applications.',
   footerBuiltWith: 'Built with Flutter Web',
-  footerVersion: 'Version 1.1.3',
+  footerVersion: 'Version 1.1.4',
   desktopNoticeTitle: 'Best Experienced on Desktop',
   desktopNoticeDesc:
       'To enjoy the full experience, including keyboard-based search and faster shortcut workflows, we recommend using a desktop or laptop computer.\n\n Enjoy your experience.',

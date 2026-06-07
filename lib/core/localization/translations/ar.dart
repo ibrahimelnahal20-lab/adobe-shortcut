@@ -107,7 +107,7 @@ const arStrings = AppStrings(
   footerDesc:
       'اعثر على اختصارات لوحة المفاتيح بشكل أسرع عبر التطبيقات الإبداعية.',
   footerBuiltWith: 'مبني باستخدام Flutter Web',
-  footerVersion: 'الإصدار 1.1.3',
+  footerVersion: 'الإصدار 1.1.4',
   desktopNoticeTitle: 'أفضل تجربة على الكمبيوتر',
   desktopNoticeDesc:
       'للاستفادة الكاملة من جميع الميزات، مثل البحث بالمفاتيح والتنقل السريع بين الاختصارات، نوصي باستخدام جهاز كمبيوتر أو لابتوب.\n\n استمتع بتجربتك.',
